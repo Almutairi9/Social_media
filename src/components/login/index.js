@@ -39,7 +39,7 @@ const Login = () => {
       // dispatch(
       //   userLogin({ token: result.data.token })
       // );
-      navigate("/Post");
+      navigate("/post"); 
     } catch (error) {
       console.log(error);
     }

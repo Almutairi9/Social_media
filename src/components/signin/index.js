@@ -2,15 +2,31 @@ import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 // import { useSelector } from "react-redux";
+//import PasswordChecklist from "react-password-checklist";
 import axios from "axios";
 import "./style.css";
+import Google from "../img/Sotial.jpg";
+// import Facebook from "../img/facebook.png";
+// import Github from "../img/github.png";
+
 import PasswordStrength from "../ComplexPassword";
 
-const isNmuberRegx = /\d/; 
-const speialCharacterRegx = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>\/?]/; 
+const isNmuberRegx = /\d/;
+const speialCharacterRegx = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>\/?]/;
 
 const Signin = () => {
   const BASE_URL = process.env.REACT_APP_BASE_URL;
+  const google = () => {
+    window.open("http://localhost:5000/auth/google", "_self");
+  };
+
+  // const github = () => {
+  //   window.open("http://localhost:5000/auth/github", "_self");
+  // };
+
+  // const facebook = () => {
+  //   window.open("http://localhost:5000/auth/facebook", "_self");
+  // };
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -40,26 +56,48 @@ const Signin = () => {
         userName: userName,
         role: "61af656c1d6e66117cb9b904",
       });
-      console.log(result);
-      navigate("/login");
+      if (result.status === 201) {
+        window.alert("you will receive a confirmation email");
+        navigate("/login");
+      }
+      //     console.log(result);
+      //     navigate("/login");
     } catch (error) {
       console.log(error);
     }
   };
- 
-  const onChangePassword = password => {
+
+  const onChangePassword = (password) => {
     setPassword(password);
 
     setPasswordValidaty({
-      minChar: password.length >=8 ? true : false,
-      number: isNmuberRegx.test(password) ? true : false, 
-      speialChar: speialCharacterRegx.test(password) ? true : false
+      minChar: password.length >= 8 ? true : false,
+      number: isNmuberRegx.test(password) ? true : false,
+      speialChar: speialCharacterRegx.test(password) ? true : false,
     });
   };
 
-
   return (
     <div>
+      <h1 className="loginTitle">Choose a Login Method</h1>
+      <div className="left">
+        <div className="loginButton google" onClick={google}>
+          <img src={Google} alt="" className="icon" />
+          Google
+        </div>
+        {/* <div className="loginButton facebook" onClick={facebook}>
+            <img src={Facebook} alt="" className="icon" />
+            Facebook
+          </div>
+          <div className="loginButton github" onClick={github}>
+            <img src={Github} alt="" className="icon" />
+            Github
+          </div> */}
+      </div>
+      <div className="center">
+        <div className="line" />
+        <div className="or">OR</div>
+      </div>
       <form>
         <h1>Signup</h1>
         <p>Please fill in this form to create an account.</p>
@@ -110,9 +148,7 @@ const Signin = () => {
             onChangePassword(e.target.value);
           }}
         />
-        {passwordFocused && (
-          <PasswordStrength validity={passwordValidaty} />
-        )}
+        {passwordFocused && <PasswordStrength validity={passwordValidaty} />}
         <div>
           <p>Please select your Role:</p>{" "}
           <input

@@ -10,7 +10,7 @@ const Landpage = () => {
       <div id="imgDev">
         <img
           id="landImg"
-          src="https://www.educationalappstore.com/blog/wp-content/uploads/2018/08/best-to-do-list-apps-for-task-management-750x350.jpg"
+          src="https://i.pinimg.com/originals/ed/9a/18/ed9a18bc848c838e149c93bff028a6c7.jpg"
           alt="landpic"
         />
         <div className="top-right">

@@ -14,22 +14,12 @@ const Landpage = () => {
           alt="landpic"
         />
         <div className="top-right">
-          {/* Technology Apps Get all the latest news and details of Technology News
-          from India and across the world on mint. Let's Connect Now! */}
           <br />
           <br />
-          <Link
-            to="/signup"
-            className="btn"
-            onClick={() => navigate(`/task`)}
-          >
+          <Link to="/signup" className="btn" onClick={() => navigate(`/task`)}>
             Sign up
           </Link>
-          <Link
-            to="/login"
-            className="btn"
-            onClick={() => navigate(`/task`)}
-          >
+          <Link to="/login" className="btn" onClick={() => navigate(`/task`)}>
             Login
           </Link>
         </div>

@@ -4,10 +4,8 @@ import { useNavigate } from "react-router-dom";
 // import { useSelector } from "react-redux";
 //import PasswordChecklist from "react-password-checklist";
 import axios from "axios";
+import { Container } from "react-bootstrap";
 import "./style.css";
-import Google from "../img/Sotial.jpg";
-// import Facebook from "../img/facebook.png";
-// import Github from "../img/github.png";
 
 import PasswordStrength from "../ComplexPassword";
 
@@ -16,36 +14,18 @@ const speialCharacterRegx = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>\/?]/;
 
 const Signin = () => {
   const BASE_URL = process.env.REACT_APP_BASE_URL;
-  const google = () => {
-    window.open("http://localhost:5000/auth/google", "_self");
-  };
-
-  // const github = () => {
-  //   window.open("http://localhost:5000/auth/github", "_self");
-  // };
-
-  // const facebook = () => {
-  //   window.open("http://localhost:5000/auth/facebook", "_self");
-  // };
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [userName, setUserName] = useState("");
+  const [message, setMessage] = useState("");
   const [passwordFocused, setPasswordFocused] = useState(false);
   const [passwordValidaty, setPasswordValidaty] = useState({
     minChar: null,
     number: null,
     speialChar: null,
   });
-  const [role, setRole] = useState("");
-
-  // const state = useSelector((state) => {
-  //   console.log(state);
-  //   return {
-  //     users: state.users,
-  //     TodosFun: state.TodosFun,
-  //   };
-  // });
+  // const [role, setRole] = useState("");
 
   const Sgin = async (e) => {
     try {
@@ -54,14 +34,23 @@ const Signin = () => {
         email: email,
         password: password,
         userName: userName,
-        role: "61af656c1d6e66117cb9b904",
+        role: "61b1edd77473faeb6bb570df", // for user
       });
-      if (result.status === 201) {
-        window.alert("you will receive a confirmation email");
-        navigate("/login");
-      }
-      //     console.log(result);
-      //     navigate("/login");
+      // if (result.status === 204) {
+      //   setMessage(
+      //     "this email or username already hava an account! login or change your email.."
+      //   );
+      // } else if (result.status === 210) {
+      //   setMessage("Enter a complix password .");
+      // } else {
+      //   setMessage(result.data);
+      // }
+      // if (result.status === 201) {
+      //   window.alert("you will receive a confirmation email");
+      navigate("/login");
+      // }
+      console.log(result);
+      navigate("/login");
     } catch (error) {
       console.log(error);
     }
@@ -79,106 +68,69 @@ const Signin = () => {
 
   return (
     <div>
-      <h1 className="loginTitle">Choose a Login Method</h1>
-      <div className="left">
-        <div className="loginButton google" onClick={google}>
-          <img src={Google} alt="" className="icon" />
-          Google
+      <Container>
+        <div className="container">
+          <form>
+            <h1>Signup</h1>
+            <p>Please fill in this form to create an account.</p>
+            <hr />
+            {/* <div className="mesage">{message} </div> */}
+            <label for="e-mail">
+              <b>Enter you e-mail :</b>
+            </label>
+            <input
+              type="text"
+              value={email}
+              placeholder="Enter you e-mail"
+              name="e-mail"
+              id="e-mail"
+              required
+              onChange={(e) => {
+                // console.log(e);
+                setEmail(e.target.value);
+              }}
+            />
+            <label for="e-mail">
+              <b>Enter you User Name :</b>
+            </label>
+            <input
+              type="text"
+              value={userName}
+              placeholder="Enter you e-mail"
+              name="e-mail"
+              id="e-mail"
+              required
+              onChange={(e) => {
+                // console.log(e);
+                setUserName(e.target.value);
+              }}
+            />
+            <label for="password">
+              <b>Enter you password :</b>
+            </label>
+            <input
+              type="password"
+              value={password}
+              onFocus={() => setPasswordFocused(true)}
+              placeholder="Enter password "
+              name="password"
+              id="password"
+              required
+              onChange={(e) => {
+                // console.log(e.target.value);
+                onChangePassword(e.target.value);
+              }}
+            />
+            {passwordFocused && (
+              <PasswordStrength validity={passwordValidaty} />
+            )}
+            <hr />
+            <button onClick={Sgin} type="submit" className="registerbtn">
+              Signup
+            </button>
+          </form>
         </div>
-        {/* <div className="loginButton facebook" onClick={facebook}>
-            <img src={Facebook} alt="" className="icon" />
-            Facebook
-          </div>
-          <div className="loginButton github" onClick={github}>
-            <img src={Github} alt="" className="icon" />
-            Github
-          </div> */}
-      </div>
-      <div className="center">
-        <div className="line" />
-        <div className="or">OR</div>
-      </div>
-      <form>
-        <h1>Signup</h1>
-        <p>Please fill in this form to create an account.</p>
-        <hr />
-        <label for="e-mail">
-          <b>Enter you e-mail :</b>
-        </label>
-        <input
-          type="text"
-          value={email}
-          placeholder="Enter you e-mail"
-          name="e-mail"
-          id="e-mail"
-          required
-          onChange={(e) => {
-            // console.log(e);
-            setEmail(e.target.value);
-          }}
-        />
-        <label for="e-mail">
-          <b>Enter you User Name :</b>
-        </label>
-        <input
-          type="text"
-          value={userName}
-          placeholder="Enter you e-mail"
-          name="e-mail"
-          id="e-mail"
-          required
-          onChange={(e) => {
-            // console.log(e);
-            setUserName(e.target.value);
-          }}
-        />
-        <label for="password">
-          <b>Enter you password :</b>
-        </label>
-        <input
-          type="password"
-          value={password}
-          onFocus={() => setPasswordFocused(true)}
-          placeholder="Enter password "
-          name="password"
-          id="password"
-          required
-          onChange={(e) => {
-            // console.log(e.target.value);
-            onChangePassword(e.target.value);
-          }}
-        />
-        {passwordFocused && <PasswordStrength validity={passwordValidaty} />}
-        <div>
-          <p>Please select your Role:</p>{" "}
-          <input
-            type="radio"
-            id="Admin"
-            name="role"
-            value="61af656c1d6e66117cb9b904"
-            onChange={(e) => {
-              e.preventDefault();
-              setRole("61af656c1d6e66117cb9b904");
-            }}
-          />
-          <label for="Admin">Admin</label>{" "}
-          <input
-            type="radio"
-            id="user"
-            name="role"
-            value="61af65831d6e66117cb9b906"
-            onChange={(e) => {
-              e.preventDefault();
-              setRole("61af65831d6e66117cb9b906");
-            }}
-          />
-          <label for="user">User</label>
-        </div>
-        <hr />
-        <button onClick={Sgin} type="submit" className="registerbtn">
-          Signup
-        </button>
-      </form>
+      </Container>
     </div>
   );
 };

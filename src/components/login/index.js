@@ -44,10 +44,14 @@ const Login = () => {
           user: result.data.result,
         })
       );
+      if(result.data.result.role.role === "Admin"){
+        navigate("/users");
+      } else{
       navigate("/post");
+      }
     } catch (error) {
       console.log(error);
-      setMessage(error.response.data.message);
+      // setMessage(error.response.data.message);
     }
   };
 

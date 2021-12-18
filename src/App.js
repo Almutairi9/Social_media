@@ -17,8 +17,7 @@ function App() {
   return (
     <>
           <Routes>
-          <Route exact path="/nav" element={<Nav />} />
-          <Route exact path="/comment" element={<Comment />} />
+          {/* <Route exact path="/nav" element={<Nav />} /> */}
           <Route exact path="/post" element={<Post />} />
           <Route exact path="/post/:id" element={<OnePosts />} />
           <Route exact path="/users" element={<Users />} />

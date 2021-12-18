@@ -132,16 +132,16 @@ const Post = () => {
   // delete post by id
   const deleteTask = async (_id) => {
     try {
-      await axios.delete(`${process.env.REACT_APP_BASE_URL}/posts/${_id}`, {
+      const result = await axios.delete(`${process.env.REACT_APP_BASE_URL}/posts/${_id}`, {
         headers: {
           Authorization: `Bearer ${state.users.token}`,
         },
       });
-      deleteTask(state.users.token);
+      deleteTask(result.data);
     } catch (error) {
       console.log(error);
     }
-    window.location.reload(false);
+    // window.location.reload(false);
   };
 
   return (

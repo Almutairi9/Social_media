@@ -21,30 +21,30 @@ const Nav = () => {
     console.log("log out");
   };
   return (
-    
     <div>
       <header className="header">
         <nav className="navbar">
           <img src="/task.jpg" alt="Soial Media" className="nav-logo" />
           {state.users.token.length !== 0 ? (
             <ul>
-              {state.users.role === "61b1ed947473faeb6bb570dd" && (
-                 <Link
-                 to="/users"
-                 className="btn"
-                 onClick={() => navigate(`/users`)}
-               >
-                Users
-               </Link>
+              {state.users.role === "61b1ed947473faeb6bb570dd" && ( // admin
+                <button
+                  to="/users"
+                  className="btn"
+                  onClick={() => navigate(`/post`)}
+                >
+                  Users
+                </button>
               )}
               <ul className="nav-menu">
                 <li className="nav-item">
-                  <button to="/users"
-                 className="btn"
-                 onClick={() => navigate(`/users`)}
-                 >
-                  Users 
-                 </button>
+                  <button
+                    className="btn"
+                    type="submit"
+                    onClick={() => navigate(`/post`)}
+                  >
+                    Posts
+                  </button>
                   <button className="btn" type="submit" onClick={logOut}>
                     Log out
                   </button>
